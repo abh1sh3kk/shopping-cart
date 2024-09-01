@@ -1,0 +1,112 @@
+[
+    {
+        "id": "1a2b3c4d5e",
+        "name": "Gaming Mouse",
+        "description": "Ergonomic design with customizable buttons, RGB lighting, and a high-precision sensor for gaming enthusiasts.",
+        "availableQty": 6,
+        "price": "Rs. 1,800",
+        "images": [
+            "https://example.com/gaming_mouse_1.jpg",
+            "https://example.com/gaming_mouse_2.jpg"
+        ]
+    },
+    {
+        "id": "6f7g8h9i0j",
+        "name": "Mechanical Keyboard",
+        "description": "Durable mechanical switches with customizable keycaps, RGB backlighting, and a detachable wrist rest.",
+        "availableQty": 5,
+        "price": "Rs. 4,500",
+        "images": [
+            "https://example.com/mechanical_keyboard_1.jpg",
+            "https://example.com/mechanical_keyboard_2.jpg"
+        ]
+    },
+    {
+        "id": "klmn1opqr2",
+        "name": "Gaming Headset",
+        "description": "Comfortable over-ear design with noise-canceling microphone, surround sound, and adjustable headband.",
+        "availableQty": 7,
+        "price": "Rs. 3,200",
+        "images": [
+            "https://example.com/gaming_headset_1.jpg",
+            "https://example.com/gaming_headset_2.jpg"
+        ]
+    },
+    {
+        "id": "3st4uvwx5y",
+        "name": "External Hard Drive",
+        "description": "Portable and reliable storage with 1TB capacity, USB 3.0 interface, and shock-resistant design.",
+        "availableQty": 3,
+        "price": "Rs. 6,500",
+        "images": [
+            "https://example.com/external_hard_drive_1.jpg",
+            "https://example.com/external_hard_drive_2.jpg"
+        ]
+    },
+    {
+        "id": "6za7bc8def",
+        "name": "Wireless Mouse",
+        "description": "Compact and lightweight wireless mouse with smooth tracking, long battery life, and ergonomic grip.",
+        "availableQty": 4,
+        "price": "Rs. 1,200",
+        "images": [
+            "https://example.com/wireless_mouse_1.jpg",
+            "https://example.com/wireless_mouse_2.jpg"
+        ]
+    },
+    {
+        "id": "ghijklm9no",
+        "name": "Laptop Cooling Pad",
+        "description": "High-performance cooling pad with adjustable fan speed, ergonomic design, and built-in USB hub.",
+        "availableQty": 6,
+        "price": "Rs. 2,000",
+        "images": [
+            "https://example.com/cooling_pad_1.jpg",
+            "https://example.com/cooling_pad_2.jpg"
+        ]
+    },
+    {
+        "id": "pqrs10tu11",
+        "name": "USB-C Hub",
+        "description": "Multi-port USB-C hub with HDMI, USB 3.0, SD card reader, and charging port for all your connectivity needs.",
+        "availableQty": 5,
+        "price": "Rs. 2,800",
+        "images": [
+            "https://example.com/usb_c_hub_1.jpg",
+            "https://example.com/usb_c_hub_2.jpg"
+        ]
+    },
+    {
+        "id": "vwxy12z34a",
+        "name": "Webcam",
+        "description": "HD webcam with built-in microphone, autofocus, and adjustable clip for clear video calls and streaming.",
+        "availableQty": 7,
+        "price": "Rs. 3,000",
+        "images": [
+            "https://example.com/webcam_1.jpg",
+            "https://example.com/webcam_2.jpg"
+        ]
+    },
+    {
+        "id": "bcd45efg67",
+        "name": "Wireless Charger",
+        "description": "Fast wireless charger with Qi compatibility, slim design, and LED indicator for convenient charging.",
+        "availableQty": 5,
+        "price": "Rs. 1,600",
+        "images": [
+            "https://example.com/wireless_charger_1.jpg",
+            "https://example.com/wireless_charger_2.jpg"
+        ]
+    },
+    {
+        "id": "hij789klmn",
+        "name": "Bluetooth Speaker",
+        "description": "Portable Bluetooth speaker with powerful sound, water-resistant design, and long battery life.",
+        "availableQty": 3,
+        "price": "Rs. 3,500",
+        "images": [
+            "https://example.com/bluetooth_speaker_1.jpg",
+            "https://example.com/bluetooth_speaker_2.jpg"
+        ]
+    }
+]
