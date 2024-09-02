@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import {userData} from "../models/user.model";
+import userData from "../models/user.model";
 
 export async function authenticateUser(req: Request, res: Response, next: NextFunction) {
   const username = req.cookies?.username;

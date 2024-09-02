@@ -1,44 +1,36 @@
 import { Schema, model } from "mongoose";
 
-const cartSchema = new Schema({
-  productId: {
-    type: String,
-    require: true,
-  },
-  quantity: {
-    type: Number,
-    require: true,
-  },
-});
-
-const userSchema = new Schema({
+const productSchema = new Schema({
   id: {
     type: String,
     require: true,
     unique: true,
   },
-  username: {
-    type: String,
-    require: true,
-    unique: true,
-  },
-  password: {
+  name: {
     type: String,
     require: true,
   },
-  carts: {
-    type: [cartSchema],
-    defualt: [],
+  description: {
+    type: String,
+    default: "",
   },
-  history: {
-    type: [cartSchema],
+  availableQty: {
+    type: Number,
+    require: true,
+  },
+  price: {
+    type: String,
+    require: true,
+  },
+  images: {
+    type: [String],
     default: [],
   },
 });
 
-const userData = model("user", userSchema);
+const productData = model("products", productSchema);
 
-export default userData;
+export default productData;
 
 // const user = {
 //   id: "ksdjfk23k4jk",

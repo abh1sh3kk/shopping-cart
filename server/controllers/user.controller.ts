@@ -1,18 +1,30 @@
 import express, { Express, Request, Response } from "express";
 import userData from "../models/user.model";
 
-const login = (req: Request, res: Response) => {
-  // unwrap the data..
-  // find the user
-  // compare the password
-  // if password is correct, return logged in
-  // else return error
+const login = async (req: Request, res: Response) => {
+  try {
+    const { username, password } = req.body;
 
-  console.log(req.body);
-  // username fetch garne.. ani pw compare.. if all fine send cookies with {username: "abh1sh3k"}
+    if (!username || !password) {
+      return res.status(400).send("Username and password are required.");
+    }
 
-  res.cookie("username", "abh1sh3k");
-  res.send("Login Successful");
+    const user = await userData.findOne({ username, password });
+
+    if (user) {
+      res.cookie("username", username, { httpOnly: true, secure: true });
+      return res.status(200).send("Login successful");
+    }
+
+    res.status(401).send("Login unsuccessful");
+  } catch (err) {
+    console.error("Error in logging in:", err);
+    res.status(500).send("Internal server error");
+  }
+};
+
+const health = (req: Request, res: Response) => {
+  res.send("Welcome to the shopping cart");
 };
 
 const logout = (req: Request, res: Response) => {
@@ -20,7 +32,6 @@ const logout = (req: Request, res: Response) => {
 };
 
 const getUserData = async (req: Request, res: Response) => {
-  // get the user from the cookie
   const username = req.cookies?.username;
   if (!username) {
     res.send("Login not successful, please try again");
@@ -47,8 +58,30 @@ const getUserData = async (req: Request, res: Response) => {
   }
 };
 
+const addUser = async (req: Request, res: Response) => {
+  const user = req.body;
+  try {
+    const replaced = await userData.findOneAndReplace({ username: user.username }, user, {
+      upsert: true,
+    });
+    // @ts-ignore
+    if (replaced?.lastErrorObject?.updatedExisting) {
+      res.status(200).send("User updated successfully");
+    } else {
+      res.status(201).send("New user added successfully");
+    }
+  } catch (err) {
+    console.error("Error adding/updating user:", err);
+    res
+      .status(500)
+      .send("An error occurred while adding/updating the user, check the console");
+  }
+};
+
 export default {
+  health,
   login,
   logout,
-  getUserData
+  getUserData,
+  addUser,
 };
