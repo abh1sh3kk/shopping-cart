@@ -35,6 +35,24 @@ const fetchProducts = async (req: Request, res: Response) => {
   }
 };
 
+const fetchProduct = async (req: Request, res: Response) => {
+  const productId = req.params.id;
+  console.log("product id to search ", productId)
+
+  try {
+    const product = await productData.findOne({_id: productId });
+    console.log("product i found is ", product);
+    if (!product) return res.status(404).send("Product not found");
+
+    res.status(200).json(product);
+  } catch (err) {
+    console.error("Error fetching product:", err);
+    res.status(500).json({
+      error: "An error occurred while fetching the product",
+    });
+  }
+};
+
 const checkout = async (req: Request, res: Response) => {
   const username = req.cookies?.username;
   try {
@@ -128,4 +146,4 @@ const removeCart = async (req: Request, res: Response) => {
   }
 };
 
-export default { fetchProducts, addCart, removeCart, thanos, checkout };
+export default { fetchProducts, fetchProduct, addCart, removeCart, thanos, checkout };

@@ -22,9 +22,9 @@ app.get("/user", UserController.getUserData);
 app.post("/user/add", UserController.addUser);
 
 app.get("/products", ProductController.fetchProducts);
+app.get("/product/:id", ProductController.fetchProduct)
 app.post("/cart/add", authenticateUser, ProductController.addCart);
 app.delete("/cart/remove/:id", authenticateUser, ProductController.removeCart);
-app.get("/history", ProductController.fetchHistory);
 app.get("/checkout", authenticateUser, ProductController.checkout);
 app.delete("/history/thanos", authenticateUser, ProductController.thanos);
 
