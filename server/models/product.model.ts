@@ -31,11 +31,3 @@ const productSchema = new Schema({
 const productData = model("products", productSchema);
 
 export default productData;
-
-// const user = {
-//   id: "ksdjfk23k4jk",
-//   username: "abh1sh3k",
-//   password: "something",
-//   history: [{ c_id: "ksdj", productId: "3sdf", quantity: 4 }],
-//   carts: [{ c_id: "ksdj", productId: "3sdf", quantity: 4 }],
-// };

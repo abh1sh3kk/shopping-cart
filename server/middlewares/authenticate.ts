@@ -13,7 +13,6 @@ export async function authenticateUser(req: Request, res: Response, next: NextFu
 
     if (!user) return res.status(401).end();
 
-    console.log("User found in the database. Proceeding to the next middleware.");
     next();
   } catch (err) {
     console.error("Error during authentication:", err);

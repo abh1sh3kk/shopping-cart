@@ -1,6 +1,5 @@
 import express, { Express, Request, Response } from "express";
 import userData from "../models/user.model";
-import { auditLog } from "../services/auditLog";
 
 const login = async (req: Request, res: Response) => {
   try {
@@ -29,8 +28,6 @@ const health = (req: Request, res: Response) => {
 };
 
 const logout = (req: Request, res: Response) => {
-  if (req.cookies?.username)
-    auditLog("DELETE", "INFO", req.cookies?.username, "User", "User is logged out");
   res.clearCookie("username").send("Log out was successful");
 };
 

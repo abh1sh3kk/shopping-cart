@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { ProductInCart } from "../configs/types";
 import userData from "../models/user.model";
 import productData from "../models/product.model";
+import { auditLog } from "../services/auditLog";
 
 export const addNewCartToDB = async (
   username: string,
@@ -28,6 +29,7 @@ export const getCartFromDB = async (username: string): Promise<any> => {
 const fetchProducts = async (req: Request, res: Response) => {
   try {
     const products = await productData.find({});
+    await auditLog("READ", "INFO", "", "Product Module", "Products list fetched.");
     res.status(200).json(products);
   } catch (err) {
     console.error("Error fetching products:", err);
@@ -37,10 +39,10 @@ const fetchProducts = async (req: Request, res: Response) => {
 
 const fetchProduct = async (req: Request, res: Response) => {
   const productId = req.params.id;
-  console.log("product id to search ", productId)
+  console.log("product id to search ", productId);
 
   try {
-    const product = await productData.findOne({_id: productId });
+    const product = await productData.findOne({ _id: productId });
     console.log("product i found is ", product);
     if (!product) return res.status(404).send("Product not found");
 
@@ -118,6 +120,7 @@ const addCart = async (req: Request, res: Response) => {
 
     await addNewCartToDB(username, newCart);
 
+    auditLog("CREATE", "INFO", username, "Cart Module", "Added an item to the cart.");
     res.status(200).send("Product added to cart successfully");
   } catch (error) {
     console.error("Error processing cart update:", error);
@@ -136,6 +139,13 @@ const removeCart = async (req: Request, res: Response) => {
     );
 
     if (result.modifiedCount > 0) {
+      auditLog(
+        "DELETE",
+        "INFO",
+        username,
+        "Cart Module",
+        "Removed an item from the cart."
+      );
       res.status(200).send("Removed product successfully").end();
     } else {
       res.send("No changes were made").end();
