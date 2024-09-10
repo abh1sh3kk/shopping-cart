@@ -14,6 +14,7 @@ const login = async (req: Request, res: Response) => {
 
     if (user) {
       res.cookie("username", username, { httpOnly: true, secure: true });
+      auditLog("LOGIN", "INFO", username, "User Module", "User is logged in");
       return res.status(200).send("Login successful");
     }
 
@@ -30,7 +31,13 @@ const health = (req: Request, res: Response) => {
 
 const logout = (req: Request, res: Response) => {
   if (req.cookies?.username)
-    auditLog("DELETE", "INFO", req.cookies?.username, "User", "User is logged out");
+    auditLog(
+      "LOGOUT",
+      "INFO",
+      req.cookies?.username,
+      "User Module",
+      "User is logged out"
+    );
   res.clearCookie("username").send("Log out was successful");
 };
 
@@ -51,8 +58,7 @@ const getUserData = async (req: Request, res: Response) => {
       res.status(404).send("User not found");
       return;
     }
-
-    console.log("user data i got is ", userdata);
+    auditLog("READ", "INFO", username, "Product Module", "Users data fetched.");
     res.json(userdata);
   } catch (err) {
     console.error("Error fetching user data:", err);

@@ -1,12 +1,8 @@
 import winston from "winston";
-
 import DailyRotateFile from "winston-daily-rotate-file";
-// import AuditLog from "./../models/audit.model";
 
-type ActionType = "CREATE" | "UPDATE" | "DELETE" | "READ";
+type ActionType = "CREATE" | "UPDATE" | "DELETE" | "READ" | "LOGIN" | "LOGOUT";
 type LogType = "ERROR" | "INFO";
-type ModuleType = string;
-type UserType = string;
 
 export const auditLogger = winston.createLogger({
   level: "info",
@@ -30,8 +26,8 @@ export const auditLogger = winston.createLogger({
 export const auditLog = (
   actionType: ActionType,
   logType: LogType,
-  user: UserType,
-  module: ModuleType,
+  user: string,
+  module: string,
   message: string
 ) => {
   const logMessage = `${actionType} action in ${module} by ${user}: ${message}`;
@@ -39,20 +35,4 @@ export const auditLog = (
     level: logType.toLowerCase(),
     message: logMessage,
   });
-
-  // to store in db
-  // const newAuditLog = new AuditLog({
-  //   actionType,
-  //   logType,
-  //   user,
-  //   module,
-  //   message,
-  // });
-
-  // try {
-  //   await newAuditLog.save();
-  //   console.log("Audit log saved to DB");
-  // } catch (error) {
-  //   console.error("Error saving audit log to DB:", error);
-  // }
 };

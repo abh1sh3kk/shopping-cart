@@ -10,70 +10,18 @@ import userRouter from "./routes/user.route";
 import productRouter from "./routes/product.route";
 import cartRouter from "./routes/cart.route";
 import { options } from "./configs/swagger-options";
-
-import morgan from "morgan";
-import winston from "winston";
-import DailyRotateFile from "winston-daily-rotate-file";
+import { morganMiddleware } from "./middlewares/morgan";
 
 export const app: Express = express();
 const port = process.env.PORT || 3000;
 
 dotenv.config();
 
-const { combine, timestamp, json } = winston.format;
-
-const auditLogger = winston.createLogger({
-  level: "info",
-  format: winston.format.combine(
-    winston.format.timestamp(),
-    winston.format.printf(({ timestamp, level, message }) => {
-      return `${timestamp} [${level.toUpperCase()}]: ${message}`;
-    })
-  ),
-  transports: [
-    new DailyRotateFile({
-      filename: "audit-%DATE%.log",
-      datePattern: "YYYY-MM-DD",
-      dirname: "./logs/audit",
-      maxFiles: "14d", // Keep logs for 14 days
-    }),
-    new winston.transports.Console(),
-  ],
-});
-
-const logger = winston.createLogger({
-  level: "http",
-  format: combine(
-    timestamp({
-      format: "YYYY-MM-DD hh:mm:ss.SSS A",
-    }),
-    json()
-  ),
-  transports: [new winston.transports.Console()],
-});
-
-// Requirement
-// -	Date time
-// -	Method
-// -	URL
-// -	Response content size (in bytes or KB)
-// -	Response time (in ms)
-// -	User-agent
-
-const morganMiddleware = morgan(
-  ":date[iso] :method :url :status :res[content-length] bytes - :response-time ms - :user-agent",
-  {
-    stream: {
-      write: (message) => logger.http(message.trim()),
-    },
-  }
-);
-
 app.use(morganMiddleware);
 
 const specs = swaggerJsdoc(options);
 
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true, customCssUrl: "https://cdn.jsdelivr.net/npm/swagger-ui-themes@3.0.0/themes/3.x/theme-feeling-blue.css" }));
 app.use(cookieParser());
 app.use(bodyParser.json());
 
